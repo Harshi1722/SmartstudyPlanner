@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Study Planner</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h1><i class="fas fa-graduation-cap"></i> StudyPlanner</h1>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="nav-item active" data-view="dashboard">
+                        <i class="fas fa-home"></i> Dashboard
+                    </li>
+                    <li class="nav-item" data-view="tasks">
+                        <i class="fas fa-tasks"></i> My Tasks
+                    </li>
+                    <li class="nav-item" data-view="timeline">
+                        <i class="fas fa-stream"></i> Timeline
+                    </li>
+                    <li class="nav-item" data-view="progress">
+                        <i class="fas fa-chart-line"></i> Progress
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="avatar">U</div>
+                    <span>Student</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header">
+                <div class="header-left">
+                    <h2 id="view-title">Dashboard</h2>
+                    <p id="view-subtitle">Welcome to your study planner</p>
+                </div>
+                <div class="header-right">
+                    <button class="btn-primary" id="add-task-btn">
+                        <i class="fas fa-plus"></i> Add Task
+                    </button>
+                    <div class="theme-toggle">
+                        <i class="fas fa-moon" id="theme-icon"></i>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard View -->
+            <section class="view active" id="dashboard-view">
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="total-tasks">0</h3>
+                            <p>Total Tasks</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon completed">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="completed-tasks">0</h3>
+                            <p>Completed</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon pending">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="pending-tasks">0</h3>
+                            <p>Pending</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon overdue">
+                            <i class="fas fa-exclamation-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="overdue-tasks">0</h3>
+                            <p>Overdue</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-content">
+                    <div class="upcoming-tasks">
+                        <h3>Upcoming Tasks</h3>
+                        <div class="tasks-list" id="upcoming-tasks-list">
+                            <!-- Upcoming tasks will be populated here -->
+                        </div>
+                    </div>
+                    
+                    <div class="progress-chart">
+                        <h3>Weekly Progress</h3>
+                        <div class="chart-container">
+                            <canvas id="progress-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tasks View -->
+            <section class="view" id="tasks-view">
+                <div class="view-header">
+                    <div class="filter-options">
+                        <button class="filter-btn active" data-filter="all">All Tasks</button>
+                        <button class="filter-btn" data-filter="pending">Pending</button>
+                        <button class="filter-btn" data-filter="completed">Completed</button>
+                        <button class="filter-btn" data-filter="overdue">Overdue</button>
+                    </div>
+                    <div class="search-box">
+                        <input type="text" id="task-search" placeholder="Search tasks...">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+                
+                <div class="tasks-container">
+                    <div class="tasks-list" id="all-tasks-list">
+                        <!-- All tasks will be populated here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Timeline View -->
+            <section class="view" id="timeline-view">
+                <div class="timeline-controls">
+                    <button class="timeline-btn active" data-period="day">Day</button>
+                    <button class="timeline-btn" data-period="week">Week</button>
+                    <button class="timeline-btn" data-period="month">Month</button>
+                </div>
+                
+                <div class="timeline-container">
+                    <div class="timeline" id="timeline">
+                        <!-- Timeline will be populated here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Progress View -->
+            <section class="view" id="progress-view">
+                <div class="progress-stats">
+                    <div class="progress-card">
+                        <h3>Study Hours This Week</h3>
+                        <div class="progress-circle">
+                            <svg width="120" height="120" viewBox="0 0 120 120">
+                                <circle class="progress-bg" cx="60" cy="60" r="54"></circle>
+                                <circle class="progress-bar" cx="60" cy="60" r="54"></circle>
+                            </svg>
+                            <div class="progress-text">
+                                <span id="study-hours">0h</span>
+                                <small>of 20h goal</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-details">
+                        <h3>Subject Breakdown</h3>
+                        <div class="subject-list" id="subject-breakdown">
+                            <!-- Subject breakdown will be populated here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="study-history">
+                    <h3>Study History</h3>
+                    <div class="history-chart">
+                        <canvas id="study-history-chart"></canvas>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Task Modal -->
+    <div class="modal" id="task-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Add New Task</h3>
+                <button class="close-btn" id="close-modal">&times;</button>
+            </div>
+            <form id="task-form">
+                <div class="form-group">
+                    <label for="task-title">Task Title</label>
+                    <input type="text" id="task-title" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="task-subject">Subject</label>
+                    <input type="text" id="task-subject" list="subject-suggestions" placeholder="Enter subject name">
+                    <datalist id="subject-suggestions">
+                        <!-- Subject suggestions will be populated dynamically -->
+                    </datalist>
+                </div>
+                
+                <div class="form-group">
+                    <label for="task-description">Description</label>
+                    <textarea id="task-description" rows="3"></textarea>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="task-due-date">Due Date</label>
+                        <input type="date" id="task-due-date" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="task-priority">Priority</label>
+                        <select id="task-priority">
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="task-estimated-time">Estimated Time (hours)</label>
+                    <input type="number" id="task-estimated-time" min="0.5" step="0.5" value="1">
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" id="cancel-task">Cancel</button>
+                    <button type="submit" class="btn-primary">Save Task</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <span id="notification-text"></span>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
