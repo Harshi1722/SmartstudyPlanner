@@ -20,7 +20,7 @@ The aim of this project is to provide an easy way to plan study schedules, set g
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Clone the Repository
 ```bash
